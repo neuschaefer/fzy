@@ -18,6 +18,7 @@ static const char *usage_str =
     " -t, --tty=TTY            Specify file to use as TTY device (default /dev/tty)\n"
     " -s, --show-scores        Show the scores of each match\n"
     " -0, --read-null          Read input delimited by ASCII NUL characters\n"
+    " -B, --backspace-exit     Exit when backspace is pressed on empty input\n"
     " -j, --workers NUM        Use NUM workers for searching. (default is # of CPUs)\n"
     " -i, --show-info          Show selection info line\n"
     " -h, --help     Display this help and exit\n"
@@ -34,6 +35,7 @@ static struct option longopts[] = {{"show-matches", required_argument, NULL, 'e'
 				   {"prompt", required_argument, NULL, 'p'},
 				   {"show-scores", no_argument, NULL, 's'},
 				   {"read-null", no_argument, NULL, '0'},
+				   {"backspace-exit", no_argument, NULL, 'B'},
 				   {"version", no_argument, NULL, 'v'},
 				   {"benchmark", optional_argument, NULL, 'b'},
 				   {"workers", required_argument, NULL, 'j'},
@@ -60,7 +62,7 @@ void options_parse(options_t *options, int argc, char *argv[]) {
 	options_init(options);
 
 	int c;
-	while ((c = getopt_long(argc, argv, "vhs0e:q:l:t:p:j:i", longopts, NULL)) != -1) {
+	while ((c = getopt_long(argc, argv, "vhs0Be:q:l:t:p:j:i", longopts, NULL)) != -1) {
 		switch (c) {
 			case 'v':
 				printf("%s " VERSION " © 2014-2025 John Hawthorn\n", argv[0]);
@@ -70,6 +72,9 @@ void options_parse(options_t *options, int argc, char *argv[]) {
 				break;
 			case '0':
 				options->input_delimiter = '\0';
+				break;
+			case 'B':
+				options->backspace_exit = 1;
 				break;
 			case 'q':
 				options->init_search = optarg;

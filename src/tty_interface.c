@@ -162,7 +162,7 @@ static void action_exit(tty_interface_t *state) {
 static void action_del_char(tty_interface_t *state) {
 	size_t length = strlen(state->search);
 	if (state->cursor == 0) {
-		if (!*state->search)
+		if (state->options->backspace_exit && !*state->search)
 			action_exit(state);
 		else
 			return;

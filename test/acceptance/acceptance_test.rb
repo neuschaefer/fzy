@@ -467,6 +467,7 @@ Usage: fzy [OPTION]...
  -t, --tty=TTY            Specify file to use as TTY device (default /dev/tty)
  -s, --show-scores        Show the scores of each match
  -0, --read-null          Read input delimited by ASCII NUL characters
+ -B, --backspace-exit     Exit when backspace is pressed on empty input
  -j, --workers NUM        Use NUM workers for searching. (default is # of CPUs)
  -i, --show-info          Show selection info line
  -h, --help     Display this help and exit
